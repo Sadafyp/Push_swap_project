@@ -1,4 +1,5 @@
-# include "push_swap.h"
+#include "push_swap.h"
+#include <stdio.h> /* for debugging purposes, remove later */
 
 t_stack	*stack_new(int value)
 {
@@ -48,5 +49,52 @@ void	stack_clear(t_stack **stack) /* No need for a delete function here because 
 		next = (*stack)->next;
 		free(*stack);
 		*stack = next;
+	}
+}
+
+int	is_sorted(t_stack *stack)
+{
+	while (stack && stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
+}
+
+int	stack_size(t_stack *stack)
+{
+	int	size;
+
+	size = 0;
+	while (stack)
+	{
+		size++;
+		stack = stack->next;
+	}
+	return (size);
+}
+
+void assign_index(t_stack *stack)
+{
+	int index;
+	t_stack *current;
+	t_stack *temp;
+	
+	current = stack;
+	while (current)
+	{
+		index = 0;
+		temp = stack;
+		while (temp)
+		{
+			if (temp->value < current->value)
+				index++;
+			temp = temp->next;
+		}
+		printf("index %d --- value %d\n", index, current->value); /* Debugging line to check the assigned index */
+		current->index = index;
+		current = current->next;
 	}
 }

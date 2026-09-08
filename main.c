@@ -58,6 +58,7 @@ int	main(int argc, char **argv)
 			current->value, current->index);
 		current = current->next;
 	}*/
+	/*
 	pb(&a, &b);
 
 	print_stack("A after pb", a);
@@ -77,6 +78,15 @@ int	main(int argc, char **argv)
 
 	print_stack("A after pa", a);
 	print_stack("B after pa", b);
+	*/
+	assign_index(a);
+	if (is_sorted(a))
+		;
+	else if (stack_size(a) == 2)
+		sort_two(&a);
+	else if (stack_size(a) == 3)
+		sort_three(&a);
+	print_stack("A after sorting", a);
 
 	stack_clear(&a);
 	stack_clear(&b);
