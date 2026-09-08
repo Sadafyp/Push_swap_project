@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# 42 projects (optional)
+*.o
+a.out
+test
+libft-war-machine
+Get_next_line/tester*
