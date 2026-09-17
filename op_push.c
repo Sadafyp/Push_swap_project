@@ -15,3 +15,15 @@ void	op_push(t_stack	**src, t_stack **dest)
 	head->next = *dest;
 	*dest = head;
 }
+
+void    pa(t_stack **a, t_stack **b)
+{
+    op_push(b, a);
+    ft_putstr_fd("pa\n", 1);
+}
+
+void    pb(t_stack **a, t_stack **b)
+{
+    op_push(a, b);
+    ft_putstr_fd("pa\n", 1);
+}
