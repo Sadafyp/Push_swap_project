@@ -47,6 +47,9 @@ void	sort_two(t_stack **a);
 void	sort_three(t_stack **a);
 void	sort_simple(t_stack **a, t_stack **b);
 void	move_to_top(t_stack **a, int index);
+void    pa(t_stack **a, t_stack **b);
+void    pb(t_stack **a, t_stack **b);
+void	sort_large(t_stack **a, t_stack **b);
 
 
 
