@@ -86,7 +86,10 @@ int	main(int argc, char **argv)
 		sort_two(&a);
 	else if (stack_size(a) == 3)
 		sort_three(&a);
-	print_stack("A after sorting", a);
+	else if (stack_size(a) <= 5)
+		sort_simple(&a, &b); 
+	else;	
+		sort_large(&a, &b);  
 
 	stack_clear(&a);
 	stack_clear(&b);
