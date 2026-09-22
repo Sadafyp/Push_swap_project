@@ -25,5 +25,5 @@ void    pa(t_stack **a, t_stack **b)
 void    pb(t_stack **a, t_stack **b)
 {
     op_push(a, b);
-    ft_putstr_fd("pa\n", 1);
+    ft_putstr_fd("pb\n", 1);
 }

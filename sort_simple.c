@@ -20,7 +20,7 @@ int find_position(t_stack *stack, int index)
 	return (-1); /* index not found in the stack */
 }
 
-void	move_to_top(t_stack **a, int index)
+static void	move_a_to_top(t_stack **a, int index)
 {
 	int	position;
 	int	size;
@@ -52,7 +52,7 @@ void	sort_simple(t_stack **a, t_stack **b)
 	while (stack_size(*a) > 3)
 	{
 		min = find_min_index(*a);
-		move_to_top(a, min);
+		move_a_to_top(a, min);
 		pb(a, b);
 	}
 	if (stack_size(*a) == 2)
@@ -61,4 +61,5 @@ void	sort_simple(t_stack **a, t_stack **b)
 		sort_three(a);
 	while (*b)
 		pa(a, b);
+	ft_printf("At the end of sort_simple, stack A is:\n");
 }
