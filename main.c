@@ -120,7 +120,8 @@ static void	sort_stack(t_stack **a, t_stack **b)
 	else if (size <= 5)
 		sort_simple(a, b);
 	else
-		sort_medium(a, b);
+		/*sort_medium(a, b);*/
+		sort_complex(a, b);
 }
 
 int	main(int argc, char **argv)

@@ -48,6 +48,7 @@ void	sort_three(t_stack **a);
 void	sort_simple(t_stack **a, t_stack **b);
 void	sort_medium(t_stack **a, t_stack **b);
 double	compute_disorder(t_stack *stack);
+void	sort_complex(t_stack **a, t_stack **b);
 
 
 
