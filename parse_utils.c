@@ -54,13 +54,13 @@ int	is_duplicate(t_stack *stack, int value)
 	return(0);
 }
 
-int parser(int argc, char **argv, t_stack **stack)
+int parser(int argc, char **argv, int start, t_stack **stack)
 {
 	int	i;
 	int	value;
 	t_stack	*new;
 
-	i = 1;
+	i = start;
 	while(i < argc)
 	{
 		if(!parse_number(argv[i], &value))

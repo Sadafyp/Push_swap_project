@@ -93,7 +93,7 @@ void assign_index(t_stack *stack)
 				index++;
 			temp = temp->next;
 		}
-		printf("index %d --- value %d\n", index, current->value); /* Debugging line to check the assigned index */
+		//printf("index %d --- value %d\n", index, current->value); /* Debugging line to check the assigned index */
 		current->index = index;
 		current = current->next;
 	}

@@ -39,7 +39,7 @@ static int	get_chunk_size(int size)
 ** to pre-sort stack B dynamically, saving operations later.
 ** i is the number of elements successfully pushed to B & shows what the acceptable index range is
 */
-static void	push_chunks_to_b(t_stack **a, t_stack **b)
+static void	push_chunks_to_b(t_stack **a, t_stack **b, t_stats *stats)
 {
 	int	chunk_size;
 	int	i;
@@ -50,24 +50,24 @@ static void	push_chunks_to_b(t_stack **a, t_stack **b)
 	{
 		if ((*a)->index <= i)
 		{
-			pb(a, b);
-			rb(b); // Move smaller elements to the bottom of B
+			pb(a, b, stats);
+			rb(b, stats); // Move smaller elements to the bottom of B
 			i++;
 		}
 		else if ((*a)->index <= i + chunk_size)
 		{
-			pb(a, b);
+			pb(a, b, stats);
 			i++;
 		}
 		else
-			ra(a); // If it doesn't belong to the chunk, rotate A to look for another
+			ra(a, stats); // If it doesn't belong to the chunk, rotate A to look for another
 	}
 }
 /*
 ** Bring a specific index to the top of B.
 ** Use the direction requiring fewer rotations.
 */
-static void	move_b_to_top(t_stack **b, int index)
+static void	move_b_to_top(t_stack **b, int index, t_stats *stats)
 {
 	int	pos;
 	int	size;
@@ -78,7 +78,7 @@ static void	move_b_to_top(t_stack **b, int index)
 	{
 		while (pos > 0)
 		{
-			rb(b);
+			rb(b, stats);
 			pos--;
 		}
 	}
@@ -86,7 +86,7 @@ static void	move_b_to_top(t_stack **b, int index)
 	{
 		while (pos < size)
 		{
-			rrb(b);
+			rrb(b, stats);
 			pos++;
 		}
 	}
@@ -100,7 +100,7 @@ static void	move_b_to_top(t_stack **b, int index)
 /*
 Just push elements from B to A, largest index first.
 */
-static void	push_back_to_a(t_stack **a, t_stack **b)
+static void	push_back_to_a(t_stack **a, t_stack **b, t_stats *stats)
 {
 	int	max_idx;
 	//int	pos;
@@ -123,8 +123,8 @@ static void	push_back_to_a(t_stack **a, t_stack **b)
 				rrb(b);
 		}
 		*/
-		move_b_to_top(b, max_idx);
-		pa(a, b); // Push it perfectly sorted back to A
+		move_b_to_top(b, max_idx, stats);
+		pa(a, b, stats); // Push it perfectly sorted back to A
 	}
 }
 
@@ -133,10 +133,10 @@ static void	push_back_to_a(t_stack **a, t_stack **b)
 ** 1. Empties stack A by sending elements pre-grouped by chunks into B.
 ** 2. Returns all elements from B back to A by always finding the maximum.
 */
-void	sort_medium(t_stack **a, t_stack **b)
+void	sort_medium(t_stack **a, t_stack **b, t_stats *stats)
 {
 	if (a == NULL || *a == NULL || b == NULL || *b != NULL)
 		return ;
-	push_chunks_to_b(a, b);
-	push_back_to_a(a, b);
+	push_chunks_to_b(a, b, stats);
+	push_back_to_a(a, b, stats);
 }

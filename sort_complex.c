@@ -22,7 +22,7 @@ static int count_bits(int max_index) //for example if max index is 7, binary is 
 	return (bits);
 }
 
-void sort_complex(t_stack **a, t_stack **b)
+void sort_complex(t_stack **a, t_stack **b, t_stats *stats)
 {
 	int size;
 	int max_bits;
@@ -38,13 +38,13 @@ void sort_complex(t_stack **a, t_stack **b)
 		while (i < size)
 		{
 			if (((*a)->index >> bit) & 1) //check if the bit at position 'bit' is 1
-				ra(a); //if 1, rotate A
+				ra(a, stats); //if 1, rotate A
 			else
-				pb(a, b); //if 0, push to B
+				pb(a, b, stats); //if 0, push to B
 			i++;
 		}
 		while (*b) //push everything back from B to A
-			pa(a, b);
+			pa(a, b, stats);
 		bit++;
 	}
 }

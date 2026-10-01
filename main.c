@@ -106,34 +106,97 @@ int	main(int argc, char **argv)
 */
 // ----------CLEANED UP MAIN------------------
 
-static void	sort_stack(t_stack **a, t_stack **b)
+static void	sort_stack(t_stack **a, t_stack **b, t_stats *stats, t_strategy strategy)
 {
-	int	size;
-
 	if (is_sorted(*a))
 		return ;
-	size = stack_size(*a);
-	if (size == 2)
-		sort_two(a);
-	else if (size == 3)
-		sort_three(a);
-	else if (size <= 5)
-		sort_simple(a, b);
+	if (stack_size(*a) == 2)
+		sort_two(a, stats);
+	else if (stack_size(*a) == 3)
+		sort_three(a, stats);
+	else if (strategy == SIMPLE)
+		sort_simple(a, b, stats);
+	else if (strategy == MEDIUM)
+		sort_medium(a, b, stats);
+	else if (strategy == COMPLEX)
+		sort_complex(a, b, stats);
+}
+/*
+static int	check_bench(int argc, char **argv, t_stats *stats)
+{
+	if (argc > 1 && ft_strncmp(argv[1], "--bench", 8) == 0)
+	{
+		stats->bench = 1;
+		return (2);
+	}
+	return (1);
+}
+*/
+static int	parse_flag(char *arg, t_config *config)
+{
+	if (ft_strncmp(arg, "--bench", 8) == 0)
+		config->bench = 1;
+	else if (ft_strncmp(arg, "--simple", 9) == 0)
+		config->strategy = SIMPLE;
+	else if (ft_strncmp(arg, "--medium", 9) == 0)
+		config->strategy = MEDIUM;
+	else if (ft_strncmp(arg, "--complex", 10) == 0)
+		config->strategy = COMPLEX;
+	else if (ft_strncmp(arg, "--adaptive", 11) == 0)
+		config->strategy = ADAPTIVE;
 	else
-		/*sort_medium(a, b);*/
-		sort_complex(a, b);
+		return (0);
+	return (1);
+}
+/*if there are multiple flags, for example: --simple --bench */
+static int	parse_flags(int argc, char **argv, t_config *config)
+{
+	int	i;
+
+	i = 1;
+	while (i < argc && argv[i][0] == '-'
+		&& argv[i][1] == '-')
+	{
+		if (!parse_flag(argv[i], config))
+			return (-1);
+		i++;
+	}
+	return (i);
+}
+
+static t_strategy	select_adaptive(double disorder)
+{
+	if (disorder < 0.2)
+		return (SIMPLE);
+	if (disorder < 0.5)
+		return (MEDIUM);
+	return (COMPLEX);
 }
 
 int	main(int argc, char **argv)
 {
-	t_stack	*a;
-	t_stack	*b;
+	t_stack		*a;
+	t_stack		*b;
+	t_stats		stats;
+	t_config	config;
+	t_strategy	strategy;
+	double		disorder;
+	int			start;
 
 	if (argc == 1)
 		return (0);
 	a = NULL;
 	b = NULL;
-	if (!parser(argc, argv, &a))
+	stats = (t_stats){0};
+	config.strategy = ADAPTIVE;
+	config.bench = 0;
+	start = parse_flags(argc, argv, &config);
+	if (start == -1 || start == argc) /* both ./a.out --hello 5 3 1 and ./a.out --bench are unaccepted */
+	{
+		ft_putstr_fd("Error\n", 2);
+		return (1);
+	}
+	if (!parser(argc, argv, start, &a))
 	{
 		ft_putstr_fd("Error\n", 2);
 		stack_clear(&a);
@@ -142,7 +205,13 @@ int	main(int argc, char **argv)
 	print_stack("A before sorting", a);
 	print_stack("B before sorting", b);
 	assign_index(a);
-	sort_stack(&a, &b);
+	disorder = compute_disorder(a);
+	strategy = config.strategy;
+	if (strategy == ADAPTIVE)
+		strategy = select_adaptive(disorder);
+	sort_stack(&a, &b, &stats, strategy); // Sort the stack based on the selected strategy, disorder doesn't matter
+	if (config.bench)
+		print_stats(&stats, disorder, strategy);
 	print_stack("A after sorting", a);
 	print_stack("B after sorting", b);
 	stack_clear(&a);
