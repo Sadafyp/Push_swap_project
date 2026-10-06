@@ -1,7 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 19:55:21 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 /* t_stack * when the function only needs to read/traverse the stack;
 t_stack ** when the function may need to change the head pointer itself.*/
+
+static int	check_overflow(long nbr, int sign)
+{
+	if (sign * nbr > INT_MAX || sign * nbr < INT_MIN)
+		return (0);
+	return (1);
+}
 
 int	parse_number(const char *str, int *value)
 {
@@ -12,29 +31,24 @@ int	parse_number(const char *str, int *value)
 	i = 0;
 	sign = 1;
 	nbr = 0;
-
 	if (!str || !str[0])
-		return(0);
+		return (0);
 	if (str[i] == '-' || str[i] == '+')
-	{	
-		if (str[i] == '-')
+		if (str[i++] == '-')
 			sign = -1;
-		i++;
-	}
 	if (!str[i])
-		return(0);
-	while(str[i])
+		return (0);
+	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
 		nbr = nbr * 10 + (str[i] - '0');
-		if (sign * nbr > INT_MAX
-			|| sign * nbr < INT_MIN)
+		if (!check_overflow(nbr, sign))
 			return (0);
 		i++;
 	}
 	*value = (int)(sign * nbr);
-	return(1);
+	return (1);
 }
 /*For boolean-style functions:
 1 = true
@@ -45,33 +59,33 @@ For success/failure functions:
 
 int	is_duplicate(t_stack *stack, int value)
 {
-	while(stack != NULL)
+	while (stack != NULL)
 	{
-		if(stack->value == value)
-			return(1);
+		if (stack->value == value)
+			return (1);
 		stack = stack->next;
 	}
-	return(0);
+	return (0);
 }
 
-int parser(int argc, char **argv, int start, t_stack **stack)
+int	parser(int argc, char **argv, int start, t_stack **stack)
 {
-	int	i;
-	int	value;
+	int		i;
+	int		value;
 	t_stack	*new;
 
 	i = start;
-	while(i < argc)
+	while (i < argc)
 	{
-		if(!parse_number(argv[i], &value))
-			return(0);
-		if(is_duplicate(*stack, value))
-			return(0);
+		if (!parse_number(argv[i], &value))
+			return (0);
+		if (is_duplicate(*stack, value))
+			return (0);
 		new = stack_new(value);
-		if(new == NULL)
-			return(0);
+		if (new == NULL)
+			return (0);
 		stack_add_back(stack, new);
 		i++;
 	}
-	return(1);
+	return (1);
 }

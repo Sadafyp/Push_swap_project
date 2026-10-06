@@ -1,11 +1,23 @@
-# include "push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   disorder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 17:40:06 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-double compute_disorder(t_stack *stack)
+#include "push_swap.h"
+
+double	compute_disorder(t_stack *stack)
 {
-	t_stack *first;
-	t_stack *second;
-	long pair_count;
-	long mistakes;
+	t_stack	*first;
+	t_stack	*second;
+	long	pair_count;
+	long	mistakes;
 
 	pair_count = 0;
 	mistakes = 0;
@@ -13,7 +25,7 @@ double compute_disorder(t_stack *stack)
 	while (first && first->next)
 	{
 		second = first->next;
-		while(second)
+		while (second)
 		{
 			pair_count++;
 			if (first->value > second->value)
@@ -23,6 +35,6 @@ double compute_disorder(t_stack *stack)
 		first = first->next;
 	}
 	if (pair_count == 0)
-		return 0.0;
+		return (0.0);
 	return ((double)mistakes / (double)pair_count);
 }

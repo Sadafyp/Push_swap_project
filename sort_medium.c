@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_medium.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 20:09:05 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 /*
 Medium algorithm (O(n√n)):
@@ -12,18 +24,28 @@ Chunk-based sorting (divide into √n chunks)
 
 /*
 More dynamically, 
-** the chunk size can be determined by a sliding-window approach proportional to sqrt(n).
+** the chunk size can be determined by a sliding-window 
+approach proportional to sqrt(n).
 ** Approximately 20 for n=100 and 46 for n=500.
 */
-
-static int	get_chunk_size(int size)
+/*static int	get_chunk_size(int size)
 {
 	/*
 	if (size <= 100)
 		return (22);
 	return (48);
-	*/
+	
 	// Dynamic chunk size based on the square root of the total size
+	int	chunk;
+
+	chunk = 1;
+	while (chunk * chunk < size)
+		chunk++;
+	return (chunk * 2);
+}*/
+
+static int	get_chunk_size(int size)
+{
 	int	chunk;
 
 	chunk = 1;
@@ -34,10 +56,13 @@ static int	get_chunk_size(int size)
 
 /*
 ** Pushes numbers from stack A to stack B by dividing them into chunks.
-** If the current element's index belongs to the active chunk, it is sent to B (pb).
-** Optimization: if the index is in the lower half of the chunk, we rotate B (rb)
+** If the current element's index belongs to the active chunk, 
+it is sent to B (pb).
+** Optimization: if the index is in the lower half of the chunk, 
+   we rotate B (rb)
 ** to pre-sort stack B dynamically, saving operations later.
-** i is the number of elements successfully pushed to B & shows what the acceptable index range is
+** i is the number of elements successfully pushed to B & shows what 
+   the acceptable index range is
 */
 static void	push_chunks_to_b(t_stack **a, t_stack **b, t_stats *stats)
 {
@@ -51,7 +76,7 @@ static void	push_chunks_to_b(t_stack **a, t_stack **b, t_stats *stats)
 		if ((*a)->index <= i)
 		{
 			pb(a, b, stats);
-			rb(b, stats); // Move smaller elements to the bottom of B
+			rb(b, stats);
 			i++;
 		}
 		else if ((*a)->index <= i + chunk_size)
@@ -60,9 +85,15 @@ static void	push_chunks_to_b(t_stack **a, t_stack **b, t_stats *stats)
 			i++;
 		}
 		else
-			ra(a, stats); // If it doesn't belong to the chunk, rotate A to look for another
+			ra(a, stats);
 	}
 }
+
+/*			rb(b, stats); // Move smaller elements to the bottom of B
+
+			ra(a, stats); // If it doesn't belong to the chunk, 
+			rotate A to look for another
+*/
 /*
 ** Bring a specific index to the top of B.
 ** Use the direction requiring fewer rotations.
@@ -100,31 +131,16 @@ static void	move_b_to_top(t_stack **b, int index, t_stats *stats)
 /*
 Just push elements from B to A, largest index first.
 */
+
 static void	push_back_to_a(t_stack **a, t_stack **b, t_stats *stats)
 {
 	int	max_idx;
-	//int	pos;
-	//int	size;
 
 	while (*b)
 	{
 		max_idx = find_max_index(*b);
-		/* pos = find_position(*b, max_idx);
-		size = stack_size(*b);
-		// Bring the maximum element to the top of B using the fastest route
-		if (pos <= size / 2)
-		{
-			while (pos-- > 0)
-				rb(b);
-		}
-		else
-		{
-			while (pos++ < size)
-				rrb(b);
-		}
-		*/
 		move_b_to_top(b, max_idx, stats);
-		pa(a, b, stats); // Push it perfectly sorted back to A
+		pa(a, b, stats);
 	}
 }
 
@@ -140,3 +156,30 @@ void	sort_medium(t_stack **a, t_stack **b, t_stats *stats)
 	push_chunks_to_b(a, b, stats);
 	push_back_to_a(a, b, stats);
 }
+
+/* static void	push_back_to_a(t_stack **a, t_stack **b, t_stats *stats)
+{
+	int	max_idx;
+	//int	pos;
+	//int	size;
+
+	while (*b)
+	{
+		max_idx = find_max_index(*b);
+		pos = find_position(*b, max_idx);
+		size = stack_size(*b);
+		// Bring the maximum element to the top of B using the fastest route
+		if (pos <= size / 2)
+		{
+			while (pos-- > 0)
+				rb(b);
+		}
+		else
+		{
+			while (pos++ < size)
+				rrb(b);
+		}
+		move_b_to_top(b, max_idx, stats);
+		pa(a, b, stats); // Push it perfectly sorted back to A
+	}
+}*/

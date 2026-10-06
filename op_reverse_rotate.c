@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_reverse_rotate.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 20:11:56 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void op_reverse_rotate(t_stack **stack)
+void	op_reverse_rotate(t_stack **stack)
 {
-	t_stack *before_last;
-	t_stack *last;
+	t_stack	*before_last;
+	t_stack	*last;
 
-	if (stack ==NULL || *stack == NULL || (*stack)->next ==NULL)
-		return;
+	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+		return ;
 	last = stack_last(*stack);
 	before_last = *stack;
 	while (before_last->next != last)
@@ -16,30 +28,32 @@ void op_reverse_rotate(t_stack **stack)
 	*stack = last;
 }
 
-void rra(t_stack **a, t_stats *stats)
+void	rra(t_stack **a, t_stats *stats)
 {
 	if (a == NULL || *a == NULL || (*a)->next == NULL || stats == NULL)
-		return;
+		return ;
 	op_reverse_rotate(a);
 	ft_putstr_fd("rra\n", 1);
 	stats->rra++;
 	stats->total++;
 }
 
-void rrb(t_stack **b, t_stats *stats)
+void	rrb(t_stack **b, t_stats *stats)
 {
 	if (b == NULL || *b == NULL || (*b)->next == NULL || stats == NULL)
-		return;
+		return ;
 	op_reverse_rotate(b);
 	ft_putstr_fd("rrb\n", 1);
 	stats->rrb++;
 	stats->total++;
 }
 
-void rrr(t_stack **a, t_stack **b, t_stats *stats)
+void	rrr(t_stack **a, t_stack **b, t_stats *stats)
 {
-	if (((a == NULL || *a == NULL || (*a)->next == NULL) && (b == NULL || *b == NULL || (*b)->next == NULL)) || stats == NULL)
-		return;
+	if (((a == NULL || *a == NULL || (*a)->next == NULL)
+			&& (b == NULL || *b == NULL || (*b)->next == NULL))
+		|| stats == NULL)
+		return ;
 	op_reverse_rotate(a);
 	op_reverse_rotate(b);
 	ft_putstr_fd("rrr\n", 1);
