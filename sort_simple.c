@@ -1,24 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_simple.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 20:10:41 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 /*
 repeatedly find the smallest remaining element
 Bring it to top  ra or rra
 move it to B pb
-When only three elements remain in A, sort those three, then push everything back to A pa
+When only three elements remain in A, sort those three, 
+then push everything back to A pa
  */
 
-int find_position(t_stack *stack, int index)
+int	find_position(t_stack *stack, int index)
 {
-	int position;
+	int	position;
+
 	position = 0;
 	while (stack)
 	{
 		if (stack->index == index)
 			return (position);
 		position++;
-		stack = stack->next;	
+		stack = stack->next;
 	}
-	return (-1); /* index not found in the stack */
+	return (-1);
 }
+/* return (-1) index not found in the stack */
 
 static void	move_a_to_top(t_stack **a, int index, t_stats *stats)
 {
@@ -27,7 +42,7 @@ static void	move_a_to_top(t_stack **a, int index, t_stats *stats)
 
 	position = find_position(*a, index);
 	size = stack_size(*a);
-	if (position <= size / 2) //which way to rotate is shorter, if position is in the first half of the stack, use ra, otherwise use rra
+	if (position <= size / 2)
 	{
 		while (position > 0)
 		{
@@ -45,6 +60,10 @@ static void	move_a_to_top(t_stack **a, int index, t_stats *stats)
 	}
 }
 
+/* if (position <= size / 2) which way to rotate is shorter, 
+if position is in the 
+first half of the stack, use ra, otherwise use rra*/
+
 void	sort_simple(t_stack **a, t_stack **b, t_stats *stats)
 {
 	int	min;
@@ -61,5 +80,6 @@ void	sort_simple(t_stack **a, t_stack **b, t_stats *stats)
 		sort_three(a, stats);
 	while (*b)
 		pa(a, b, stats);
-	ft_printf("At the end of sort_simple, stack A is:\n");
 }
+
+/*	ft_printf("At the end of sort_simple, stack A is:\n");*/

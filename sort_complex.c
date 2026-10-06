@@ -1,4 +1,16 @@
-# include "push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_complex.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 17:39:53 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
 /*
 sorts indexes instead of original values. 
 Easier because there are all non negative integers and exactly stack size - 1. 
@@ -9,7 +21,10 @@ when all done we push back the whole B to A (pa).
 then we start again this time with the second bit. 
 */
 
-static int count_bits(int max_index) //for example if max index is 7, binary is 111, so we need 3 bits to represent it.
+/*for example if max index is 7, binary is 111, 
+so we need 3 bits to represent it.*/
+
+static int	count_bits(int max_index)
 {
 	int	bits;
 
@@ -22,22 +37,40 @@ static int count_bits(int max_index) //for example if max index is 7, binary is 
 	return (bits);
 }
 
-void sort_complex(t_stack **a, t_stack **b, t_stats *stats)
+void	sort_complex(t_stack **a, t_stack **b, t_stats *stats)
 {
-	int size;
-	int max_bits;
-	int bit;
-	int i;
+	int	size;
+	int	max_bits;
+	int	bit;
+	int	i;
 
 	size = stack_size(*a);
-	max_bits = count_bits(size - 1); //max index is size - 1
+	max_bits = count_bits(size - 1);
 	bit = 0;
 	while (bit < max_bits)
 	{
 		i = 0;
 		while (i < size)
 		{
-			if (((*a)->index >> bit) & 1) //check if the bit at position 'bit' is 1
+			if (((*a)->index >> bit) & 1)
+				ra(a, stats);
+			else
+				pb(a, b, stats);
+			i++;
+		}
+		while (*b)
+			pa(a, b, stats);
+		bit++;
+	}
+}
+
+/*max_bits = count_bits(size - 1); //max index is size - 1*/
+
+/*		i = 0;
+		while (i < size)
+		{
+			if (((*a)->index >> bit) & 1) 
+			//check if the bit at position 'bit' is 1
 				ra(a, stats); //if 1, rotate A
 			else
 				pb(a, b, stats); //if 0, push to B
@@ -47,4 +80,4 @@ void sort_complex(t_stack **a, t_stack **b, t_stats *stats)
 			pa(a, b, stats);
 		bit++;
 	}
-}
+}*/

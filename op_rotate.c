@@ -1,14 +1,28 @@
-# include "push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_rotate.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 20:02:14 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
 /*
-ra : The first element of stack A becomes the last one. Shift all elements by one.
-rb : The first element of stack B becomes the last one. Shift all elements by one.
+ra : The first element of stack A becomes the last one. 
+	 Shift all elements by one.
+rb : The first element of stack B becomes the last one. 
+	 Shift all elements by one.
 rr : ra and rb at the same time.
 */
 
-void op_rotate(t_stack **stack)
+void	op_rotate(t_stack **stack)
 {
-	t_stack *first;
-	t_stack *last;
+	t_stack	*first;
+	t_stack	*last;
 
 	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
 		return ;
@@ -19,7 +33,7 @@ void op_rotate(t_stack **stack)
 	first->next = NULL;
 }
 
-void ra(t_stack **a, t_stats *stats)
+void	ra(t_stack **a, t_stats *stats)
 {
 	if (a == NULL || *a == NULL || (*a)->next == NULL || stats == NULL)
 		return ;
@@ -29,8 +43,7 @@ void ra(t_stack **a, t_stats *stats)
 	stats->total++;
 }
 
-
-void rb(t_stack **b, t_stats *stats)
+void	rb(t_stack **b, t_stats *stats)
 {
 	if (b == NULL || *b == NULL || (*b)->next == NULL || stats == NULL)
 		return ;
@@ -40,10 +53,11 @@ void rb(t_stack **b, t_stats *stats)
 	stats->total++;
 }
 
-
-void rr(t_stack **a, t_stack **b, t_stats *stats)
+void	rr(t_stack **a, t_stack **b, t_stats *stats)
 {
-	if (((a == NULL || *a == NULL || (*a)->next == NULL) && (b == NULL || *b == NULL || (*b)->next == NULL)) || stats == NULL)
+	if (((a == NULL || *a == NULL || (*a)->next == NULL)
+			&& (b == NULL || *b == NULL || (*b)->next == NULL))
+		|| stats == NULL)
 		return ;
 	op_rotate(a);
 	op_rotate(b);

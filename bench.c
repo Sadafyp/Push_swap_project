@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bench.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 19:59:59 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 /*
 lines prefixed with [bench] represent messages printed by the optional bench-
 mark mode (to stderr).
 */
+
 static void	print_count(char *name, int count)
 {
 	ft_putstr_fd(name, 2);

@@ -1,19 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 20:17:07 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
 # include <unistd.h>
-#include <limits.h>
+# include <limits.h>
 # include "libft/libft.h"
 # include "printf/ft_printf.h"
-
 
 typedef struct s_stack
 {
 	int				value;
 	int				index;
 	struct s_stack	*next;
-}t_stack;
+}	t_stack;
 
 typedef struct s_stats
 {
@@ -29,8 +40,9 @@ typedef struct s_stats
 	int	rra;
 	int	rrb;
 	int	rrr;
-	//int	bench; /* 1 if benchmark mode is enabled, 0 otherwise */
 }	t_stats;
+
+//int	bench; /* 1 if benchmark mode is enabled, 0 otherwise */
 
 typedef enum e_strategy
 {
@@ -70,7 +82,7 @@ void	rrb(t_stack **b, t_stats *stats);
 void	rrr(t_stack **a, t_stack **b, t_stats *stats);
 void	assign_index(t_stack *stack);
 int		is_sorted(t_stack *stack);
-int 	stack_size(t_stack *stack);
+int		stack_size(t_stack *stack);
 int		find_max_index(t_stack *stack);
 int		find_min_index(t_stack *stack);
 int		find_position(t_stack *stack, int index);
@@ -81,8 +93,5 @@ void	sort_medium(t_stack **a, t_stack **b, t_stats *stats);
 double	compute_disorder(t_stack *stack);
 void	sort_complex(t_stack **a, t_stack **b, t_stats *stats);
 void	print_stats(t_stats *stats, double disorder, t_strategy strategy);
-
-
-
 
 #endif

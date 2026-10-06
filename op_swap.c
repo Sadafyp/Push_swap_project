@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_swap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 19:44:26 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void op_swap(t_stack **stack)
+void	op_swap(t_stack **stack)
 {
-	t_stack *first;
+	t_stack	*first;
 	t_stack	*second;
 
 	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
@@ -14,17 +26,19 @@ void op_swap(t_stack **stack)
 	*stack = second;
 }
 
-void sa(t_stack **a, t_stats *stats)
+void	sa(t_stack **a, t_stats *stats)
 {
 	if (a == NULL || *a == NULL || (*a)->next == NULL || stats == NULL)
 		return ;
 	op_swap(a);
-	ft_putstr_fd("sa\n", 1); /*standard output ->1 */
+	ft_putstr_fd("sa\n", 1);
 	stats->sa++;
 	stats->total++;
 }
 
-void sb(t_stack **b, t_stats *stats)
+/*ft_putstr_fd("sa\n", 1); standard output ->1 */
+
+void	sb(t_stack **b, t_stats *stats)
 {
 	if (b == NULL || *b == NULL || (*b)->next == NULL || stats == NULL)
 		return ;
@@ -36,7 +50,9 @@ void sb(t_stack **b, t_stats *stats)
 
 void	ss(t_stack **a, t_stack **b, t_stats *stats)
 {
-	if (((a == NULL || *a == NULL || (*a)->next == NULL) && (b == NULL || *b == NULL || (*b)->next == NULL)) || stats == NULL)
+	if (((a == NULL || *a == NULL || (*a)->next == NULL)
+			&& (b == NULL || *b == NULL || (*b)->next == NULL))
+		|| stats == NULL)
 		return ;
 	op_swap(a);
 	op_swap(b);

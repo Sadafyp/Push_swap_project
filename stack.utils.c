@@ -1,5 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 20:32:46 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-#include <stdio.h> /* for debugging purposes, remove later */
+//#include <stdio.h> /* for debugging purposes, remove later */
+
+/*
+** Allocates and initializes a new stack node with a value.
+** The node index is initialized to -1, as it will be set later.
+*/
 
 t_stack	*stack_new(int value)
 {
@@ -9,12 +26,18 @@ t_stack	*stack_new(int value)
 	if (node == NULL)
 		return (NULL);
 	node->value = value;
-	node->index = -1; /* index is initialized to -1, as it will be set later */
+	node->index = -1;
 	node->next = NULL;
 	return (node);
 }
 
-t_stack	*stack_last(t_stack *stack) /* *stack is actually the head of the stack, while **stack is the pointer to the head (address of the head, using it we can change it so it points to the new head) */
+/*node->index = -1; index is initialized to -1, as it will be set later */
+
+/* *stack is actually the head of the stack, while **stack is the pointer 
+to the head (address of the head, using it we can change 
+it so it points to the new head) */
+
+t_stack	*stack_last(t_stack *stack)
 {
 	if (stack == NULL)
 		return (NULL);
@@ -22,6 +45,10 @@ t_stack	*stack_last(t_stack *stack) /* *stack is actually the head of the stack,
 		stack = stack->next;
 	return (stack);
 }
+
+/*
+** Appends a new node to the back of the target stack.
+*/
 
 void	stack_add_back(t_stack **stack, t_stack *new)
 {
@@ -37,8 +64,14 @@ void	stack_add_back(t_stack **stack, t_stack *new)
 	last = stack_last(*stack);
 	last->next = new;
 }
+/* No need for a delete function here because we can only free 
+the nodes as the node's value is not a pointer but an integer */
 
-void	stack_clear(t_stack **stack) /* No need for a delete function here because we can only free the nodes as the node's value is not a pointer but an integer */
+/*
+** Clears all allocated nodes in the target stack and sets head to NULL.
+*/
+
+void	stack_clear(t_stack **stack)
 {
 	t_stack	*next;
 
@@ -49,52 +82,5 @@ void	stack_clear(t_stack **stack) /* No need for a delete function here because 
 		next = (*stack)->next;
 		free(*stack);
 		*stack = next;
-	}
-}
-
-int	is_sorted(t_stack *stack)
-{
-	while (stack && stack->next)
-	{
-		if (stack->value > stack->next->value)
-			return (0);
-		stack = stack->next;
-	}
-	return (1);
-}
-
-int	stack_size(t_stack *stack)
-{
-	int	size;
-
-	size = 0;
-	while (stack)
-	{
-		size++;
-		stack = stack->next;
-	}
-	return (size);
-}
-
-void assign_index(t_stack *stack)
-{
-	int index;
-	t_stack *current;
-	t_stack *temp;
-	
-	current = stack;
-	while (current)
-	{
-		index = 0;
-		temp = stack;
-		while (temp)
-		{
-			if (temp->value < current->value)
-				index++;
-			temp = temp->next;
-		}
-		//printf("index %d --- value %d\n", index, current->value); /* Debugging line to check the assigned index */
-		current->index = index;
-		current = current->next;
 	}
 }

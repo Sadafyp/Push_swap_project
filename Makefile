@@ -12,7 +12,10 @@ SRCS        = main.c \
               sort_utils.c \
               stack.c \
               stack.utils.c \
-			  sort_large.c
+			  sort_complex.c \
+			  disorder.c \
+			  sort_medium.c \
+			  bench.c
 
 OBJS        = $(SRCS:.c=.o)
 

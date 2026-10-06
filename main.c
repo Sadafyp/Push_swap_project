@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
+/*   Updated: 2026/10/04 20:26:09 by Natasha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 /*
 int	main(void)
@@ -20,7 +32,7 @@ int	main(void)
 	return (0);
 }
 */
-static void	print_stack(char *name, t_stack *stack)
+/*static void	print_stack(char *name, t_stack *stack)
 {
 	ft_putstr_fd(name, 2);
 	ft_putstr_fd(": ", 2);
@@ -32,7 +44,7 @@ static void	print_stack(char *name, t_stack *stack)
 		stack = stack->next;
 	}
 	ft_putstr_fd("\n", 2);
-}
+}*/
 /*
 int	main(int argc, char **argv)
 {
@@ -45,7 +57,8 @@ int	main(int argc, char **argv)
 	if (!parser(argc, argv, &a))
 	{
 		ft_putstr_fd("Error\n", 2);
-		stack_clear(&a); //anytime an input returns error, it should clean up: 6 7 8 Hello
+		stack_clear(&a); //anytime an input returns error, 
+		it should clean up: 6 7 8 Hello
 		return (1);
 	}
 	print_stack("A before", a);
@@ -106,7 +119,8 @@ int	main(int argc, char **argv)
 */
 // ----------CLEANED UP MAIN------------------
 
-static void	sort_stack(t_stack **a, t_stack **b, t_stats *stats, t_strategy strategy)
+static void	sort_stack(t_stack **a, t_stack **b, t_stats *stats,
+	t_strategy strategy)
 {
 	if (is_sorted(*a))
 		return ;
@@ -132,6 +146,7 @@ static int	check_bench(int argc, char **argv, t_stats *stats)
 	return (1);
 }
 */
+
 static int	parse_flag(char *arg, t_config *config)
 {
 	if (ft_strncmp(arg, "--bench", 8) == 0)
@@ -149,6 +164,7 @@ static int	parse_flag(char *arg, t_config *config)
 	return (1);
 }
 /*if there are multiple flags, for example: --simple --bench */
+
 static int	parse_flags(int argc, char **argv, t_config *config)
 {
 	int	i;
@@ -179,6 +195,34 @@ int	main(int argc, char **argv)
 	t_stack		*b;
 	t_stats		stats;
 	t_config	config;
+	int			start;
+
+	if (argc == 1)
+		return (0);
+	a = NULL;
+	b = NULL;
+	ft_bzero(&stats, sizeof(t_stats));
+	config = (t_config){ADAPTIVE, 0};
+	start = parse_flags(argc, argv, &config);
+	if (start == -1 || start == argc || !parser(argc, argv, start, &a))
+		return (ft_putstr_fd("Error\n", 2), stack_clear(&a), 1);
+	assign_index(a);
+	if (stack_size(a) <= 5)
+		config.strategy = SIMPLE;
+	else if (config.strategy == ADAPTIVE)
+		config.strategy = select_adaptive(compute_disorder(a));
+	sort_stack(&a, &b, &stats, config.strategy);
+	if (config.bench)
+		print_stats(&stats, compute_disorder(a), config.strategy);
+	return (stack_clear(&a), stack_clear(&b), 0);
+}
+
+/*int	main(int argc, char **argv)
+{
+	t_stack		*a;
+	t_stack		*b;
+	t_stats		stats;
+	t_config	config;
 	t_strategy	strategy;
 	double		disorder;
 	int			start;
@@ -191,7 +235,8 @@ int	main(int argc, char **argv)
 	config.strategy = ADAPTIVE;
 	config.bench = 0;
 	start = parse_flags(argc, argv, &config);
-	if (start == -1 || start == argc) /* both ./a.out --hello 5 3 1 and ./a.out --bench are unaccepted */
+	if (start == -1 || start == argc) // both ./a.out --hello 5 3 1 
+	and ./a.out --bench are unaccepted
 	{
 		ft_putstr_fd("Error\n", 2);
 		return (1);
@@ -209,7 +254,8 @@ int	main(int argc, char **argv)
 	strategy = config.strategy;
 	if (strategy == ADAPTIVE)
 		strategy = select_adaptive(disorder);
-	sort_stack(&a, &b, &stats, strategy); // Sort the stack based on the selected strategy, disorder doesn't matter
+	sort_stack(&a, &b, &stats, strategy); // Sort the stack based on 
+	the selected strategy, disorder doesn't matter
 	if (config.bench)
 		print_stats(&stats, disorder, strategy);
 	print_stack("A after sorting", a);
@@ -217,4 +263,4 @@ int	main(int argc, char **argv)
 	stack_clear(&a);
 	stack_clear(&b);
 	return (0);
-}
+}*/
