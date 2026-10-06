@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: syazdanp <syazdanp@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
-/*   Updated: 2026/10/04 20:00:27 by Natasha          ###   ########.fr       */
+/*   Updated: 2026/10/06 15:39:13 by syazdanp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,6 @@ int	find_min_index(t_stack *stack)
 	}
 	return (min);
 }
-
-/*void sort_three(t_stack **a, t_stats *stats)
-{
-	int	max_index;
-
-	if (is_sorted(*a))
-		return ;
-	max_index = find_max_index(*a);
-	if ((*a)->index == max_index)
-		ra(a, stats);
-	else if ((*a)->next->index == max_index)
-		rra(a, stats);
-	if ((*a)->index > (*a)->next->index)
-		sa(a, stats);
-}*/
 
 /*
 ** Sorts exactly 3 elements in Stack A using a maximum of 2 moves.

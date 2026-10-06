@@ -8,7 +8,7 @@ The challenge lies not only in achieving a sorted state but in minimizing the to
 ## Instructions
 
 ### Compilation & Installation
-The project compiles into an executable using the provided `Makefile`. It automatically handles the internal compilation of dependency libraries (`libft` and `ft_printf`).
+The project compiles into an executable using the provided `Makefile`. It automatically handles the internal compilation of dependency libraries (`libft`).
 
 To compile the program, run the following command at the root of the repository:
 ```bash

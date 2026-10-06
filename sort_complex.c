@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_complex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: syazdanp <syazdanp@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
-/*   Updated: 2026/10/04 17:39:53 by Natasha          ###   ########.fr       */
+/*   Updated: 2026/10/06 15:35:45 by syazdanp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,3 @@ void	sort_complex(t_stack **a, t_stack **b, t_stats *stats)
 }
 
 /*max_bits = count_bits(size - 1); //max index is size - 1*/
-
-/*		i = 0;
-		while (i < size)
-		{
-			if (((*a)->index >> bit) & 1) 
-			//check if the bit at position 'bit' is 1
-				ra(a, stats); //if 1, rotate A
-			else
-				pb(a, b, stats); //if 0, push to B
-			i++;
-		}
-		while (*b) //push everything back from B to A
-			pa(a, b, stats);
-		bit++;
-	}
-}*/

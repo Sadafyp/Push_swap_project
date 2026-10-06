@@ -3,6 +3,7 @@ CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -I.
 
 SRCS        = main.c \
+			  config.c \
               parse_utils.c \
               op_push.c \
               op_swap.c \
@@ -11,7 +12,7 @@ SRCS        = main.c \
               sort_simple.c \
               sort_utils.c \
               stack.c \
-              stack.utils.c \
+              stack_utils.c \
 			  sort_complex.c \
 			  disorder.c \
 			  sort_medium.c \
@@ -20,28 +21,23 @@ SRCS        = main.c \
 OBJS        = $(SRCS:.c=.o)
 
 LIBFT_DIR   = ./libft
-PRINTF_DIR  = ./printf
 
 LIBFT       = $(LIBFT_DIR)/libft.a
-PRINTF      = $(PRINTF_DIR)/libftprintf.a
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@make -C $(PRINTF_DIR)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(PRINTF) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@make clean -C $(LIBFT_DIR)
-	@make clean -C $(PRINTF_DIR)
 	rm -f $(OBJS)
 
 fclean: clean
 	@make fclean -C $(LIBFT_DIR)
-	@make fclean -C $(PRINTF_DIR)
 	rm -f $(NAME)
 
 re: fclean all

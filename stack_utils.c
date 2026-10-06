@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   stack.utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Natasha <Natasha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: syazdanp <syazdanp@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:31:35 by syazdanp          #+#    #+#             */
-/*   Updated: 2026/10/04 20:32:46 by Natasha          ###   ########.fr       */
+/*   Updated: 2026/10/06 15:40:59 by syazdanp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-//#include <stdio.h> /* for debugging purposes, remove later */
-
 /*
 ** Allocates and initializes a new stack node with a value.
 ** The node index is initialized to -1, as it will be set later.
