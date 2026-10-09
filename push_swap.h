@@ -28,6 +28,7 @@ typedef struct s_stack
 typedef struct s_stats
 {
 	int	total;
+	int count_only;
 	int	sa;
 	int	sb;
 	int	ss;
@@ -53,6 +54,8 @@ typedef struct s_config
 {
 	t_strategy	strategy;
 	int			bench;
+	int			count_only;
+
 }	t_config;
 
 t_stack		*stack_new(int value);

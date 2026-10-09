@@ -38,7 +38,8 @@ void	ra(t_stack **a, t_stats *stats)
 	if (a == NULL || *a == NULL || (*a)->next == NULL || stats == NULL)
 		return ;
 	op_rotate(a);
-	ft_putstr_fd("ra\n", 1);
+	if (!config.count_only)
+		ft_putstr_fd("ra\n", 1);
 	stats->ra++;
 	stats->total++;
 }

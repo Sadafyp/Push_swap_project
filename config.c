@@ -56,6 +56,8 @@ int	parse_flag(char *arg, t_config *config)
 		config->strategy = COMPLEX;
 	else if (ft_strncmp(arg, "--adaptive", 11) == 0)
 		config->strategy = ADAPTIVE;
+	else if (ft_strncmp(arg, "--count_only", 13) == 0)
+		config->count_only = 1;
 	else
 		return (0);
 	return (1);
@@ -92,6 +94,7 @@ int	init_stack(int argc, char **argv, t_stack **a,
 	*a = NULL;
 	config->strategy = ADAPTIVE;
 	config->bench = 0;
+	config->count_only = 0;
 	start = parse_flags(argc, argv, config);
 	if (start == -1 || start == argc)
 		return (0);

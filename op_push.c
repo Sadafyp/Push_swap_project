@@ -33,7 +33,8 @@ void	pa(t_stack **a, t_stack **b, t_stats *stats)
 	if (b == NULL || a == NULL || *b == NULL || stats == NULL)
 		return ;
 	op_push(b, a);
-	ft_putstr_fd("pa\n", 1);
+	if (!config.count_only)
+		ft_putstr_fd("pa\n", 1);
 	stats->pa++;
 	stats->total++;
 }
@@ -43,7 +44,8 @@ void	pb(t_stack **a, t_stack **b, t_stats *stats)
 	if (a == NULL || b == NULL || *a == NULL || stats == NULL)
 		return ;
 	op_push(a, b);
-	ft_putstr_fd("pb\n", 1);
+	if (!config.count_only)
+		ft_putstr_fd("pb\n", 1);
 	stats->pb++;
 	stats->total++;
 }

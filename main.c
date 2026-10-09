@@ -33,5 +33,7 @@ int	main(int argc, char **argv)
 	sort_stack(&a, &b, &stats, config.strategy);
 	if (config.bench)
 		print_stats(&stats, disorder, config.strategy);
+	if (config.count_only)
+		ft_putnbr_fd(stats.count_only, 1);
 	return (stack_clear(&a), stack_clear(&b), 0);
 }
